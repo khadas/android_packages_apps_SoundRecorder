@@ -15,7 +15,8 @@
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.android.soundrecorder">
+    package="com.android.soundrecorder"
+	android:sharedUserId="android.uid.system">
 
     <original-package android:name="com.android.soundrecorder" />
 
