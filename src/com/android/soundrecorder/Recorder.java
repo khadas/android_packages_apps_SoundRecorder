@@ -199,9 +199,12 @@ public class Recorder implements OnCompletionListener, OnErrorListener {
     public void stopRecording() {
         if (mRecorder == null)
             return;
-
-        mRecorder.stop();
-        mRecorder.release();
+        try{
+            mRecorder.stop();
+            mRecorder.release();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         mRecorder = null;
 
         mSampleLength = (int)( (System.currentTimeMillis() - mSampleStart)/1000 );
