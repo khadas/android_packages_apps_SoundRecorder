@@ -32,6 +32,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
@@ -600,7 +601,22 @@ public class SoundRecorder extends Activity
         SimpleDateFormat formatter = new SimpleDateFormat(
                 res.getString(R.string.audio_db_title_format));
         String title = formatter.format(date);
-        long sampleLengthMillis = mRecorder.sampleLength() * 1000L;
+
+        long sampleLengthMillis = 0;
+        try{
+            MediaPlayer mediaPlayer = new MediaPlayer();
+            mediaPlayer.reset();
+            mediaPlayer.setDataSource(file.getAbsolutePath());
+            mediaPlayer.prepare();
+            sampleLengthMillis = mediaPlayer.getDuration();
+            mediaPlayer.release();
+        } catch (Exception e) {
+            Log.e(TAG, "get record duration happen error");
+            e.printStackTrace();
+        }
+        if(0 == sampleLengthMillis){
+            sampleLengthMillis = mRecorder.sampleLength() * 1000L;
+        }
 
         // Lets label the recorded audio file as NON-MUSIC so that the file
         // won't be displayed automatically, except for in the playlist.
