@@ -41,7 +41,8 @@
                 android:configChanges="orientation|screenSize|keyboardHidden"
                 android:screenOrientation="unspecified"
                 android:clearTaskOnLaunch="true"
-                android:theme="@style/Theme.SoundRecorder">
+                android:theme="@style/Theme.SoundRecorder"
+                android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
