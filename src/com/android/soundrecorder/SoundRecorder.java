@@ -1119,7 +1119,12 @@ public class SoundRecorder extends Activity
         mTimerView.setText(timeStr);
 
         if (state == Recorder.PLAYING_STATE) {
-            mStateProgressBar.setProgress((int) (100 * time / mRecorder.sampleLength()));
+            int sampleLength = mRecorder.sampleLength();
+            if (sampleLength > 0) {
+                mStateProgressBar.setProgress((int) (100 * time / sampleLength));
+            } else {
+                mStateProgressBar.setProgress(0);
+            }
         } else if (state == Recorder.RECORDING_STATE) {
             updateTimeRemaining();
         }
