@@ -159,19 +159,29 @@ public class Recorder implements OnCompletionListener, OnErrorListener {
         stop();
         if (mSampleFile == null) {
             String myExtension = extension + TEMP_SUFFIX;
-            /*File sampleDir = Environment.getExternalStoragePublicDirectory(
-                    Environment.DIRECTORY_DOCUMENTS);
-            if (!sampleDir.canWrite()) // Workaround for broken sdcard support on the device.
-                sampleDir = Environment.getExternalStorageDirectory();
             String sampleDirPath = null;
+            String path = "storage/emulated/0/Recordings";
+            File sampleDir = context.getExternalFilesDir(null);
+
+            if (sampleDir != null) {
+                String recordAppPath = sampleDir.getAbsolutePath();
+                int androidIndex = recordAppPath.indexOf("/Android");
+                if (androidIndex != -1) {
+                    path = recordAppPath.substring(0, androidIndex);
+                }
+            }
+
+            sampleDir = new File(path);
+
+
             if (sampleDir != null) {
                 sampleDirPath = sampleDir.getAbsolutePath() + File.separator
                         + RECORD_FOLDER;
             }
             if (sampleDirPath != null) {
                 sampleDir = new File(sampleDirPath);
-            }*/
-            File sampleDir = new File("storage/emulated/0/Recordings");
+            }
+
             if (sampleDir != null && !sampleDir.exists()) {
                 if (!sampleDir.mkdirs()) {
                     Log.i(TAG, "<startRecording> make dirs fail");
